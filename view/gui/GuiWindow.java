@@ -24,7 +24,8 @@ public class GuiWindow extends JFrame implements IGuiWindow {
 
     public GuiWindow(JComponent canvas){
         setVisible(true);
-        addMouseListener(new MouseListener(canvas));
+        PaintCanvas p = (PaintCanvas) canvas;
+        addMouseListener(new MouseListener(p));
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle(defaultTitle);
         setSize(defaultWidth, defaultHeight);
