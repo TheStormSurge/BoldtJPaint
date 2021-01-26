@@ -1,2 +1,2 @@
 # BoldtJPaint
-JPaint Application for SE450
+Bryan Boldt's JPaint Application for SE450
