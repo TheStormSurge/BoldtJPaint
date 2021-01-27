@@ -22,23 +22,21 @@ public class DrawRectangle implements ICommand, IUndoable {
     public void run() {
         //DRAW RECTANGLE TO CANVAS
         Graphics2D graph=canvas.getGraphics2D();
-        graph.setColor(new Color(255,0,0));
-        height= end.getY() - start.getY();
-        width=end.getX() - start.getX();
-        graph.fillRect(start.getX()-5, start.getY()-70,height,width);
+        width=end.getX()-start.getX();
+        height= end.getY()-start.getY();
+        graph.fillRect(start.getX()-5, start.getY()-70,width,height);
         CommandHistory.add(this);
     }
     public void undo(){
         //UNDO DRAWN RECTANGLE
         Graphics2D mygraph=canvas.getGraphics2D();
         mygraph.setColor(new Color(255,255,255));
-        mygraph.fillRect(start.getX()-5, start.getY()-70,height,width);
+        mygraph.fillRect(start.getX()-5, start.getY()-70,width,height);
     }
     public void redo(){
         //REDRAW RECTANGLE
         Graphics2D graph=canvas.getGraphics2D();
-        graph.setColor(new Color(255,0,0));
         Graphics2D mygraph=canvas.getGraphics2D();
-        mygraph.fillRect(start.getX()-5, start.getY()-70,height,width);
+        graph.fillRect(start.getX()-5, start.getY()-70,width,height);
     }
 }
