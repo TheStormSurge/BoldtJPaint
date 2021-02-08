@@ -2,7 +2,7 @@ package view.gui;
 
 import java.awt.*;
 
-class MyPoint{
+public class MyPoint{
     int xcord;
     int ycord;
 

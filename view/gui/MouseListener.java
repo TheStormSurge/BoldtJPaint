@@ -1,14 +1,12 @@
 package view.gui;
-import model.ShapeType;
+import model.ShapeShadingType;
 import model.persistence.ApplicationState;
+import view.gui.shapes.ShapeFactory;
 import view.interfaces.IShape;
-
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Map;
-import java.util.concurrent.Callable;
+import java.lang.reflect.Field;
 
 public class MouseListener extends MouseAdapter {
     PaintCanvas drawarea;
@@ -30,21 +28,41 @@ public class MouseListener extends MouseAdapter {
     public void mouseReleased(MouseEvent e) {
         end=new MyPoint(e.getPoint());
         String active_mode=state.getActiveMouseMode().toString();
+        ShapeShadingType shade = state.getActiveShapeShadingType();
+        String active_shape= state.getActiveShapeType().toString();
+        Color fill=Color.BLACK;
+        Color outline=Color.WHITE;
+
+        try {
+            Field fieldf = Color.class.getField(state.getActivePrimaryColor().toString());
+            Field fieldo = Color.class.getField(state.getActiveSecondaryColor().toString());
+            fill = (Color)fieldf.get(null);
+            outline = (Color)fieldo.get(null);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         if(active_mode.equals("DRAW")){
-            String t = state.getActiveShapeType().toString();
             IShape shape;
-            switch(t) {
+            switch (active_shape){
                 case "RECTANGLE":
-                    shape=sf.createRectangle(start,end);
+                    shape=sf.createRectangle(start,end,fill,outline,shade);
                     break;
                 case "TRIANGLE":
-                    shape=sf.createTriangle(start,end);
+                    shape=sf.createTriangle(start,end,fill,outline,shade);
                     break;
-                default :
-                    shape=sf.createOval(start,end);
+                case "ELLIPSE":
+                    shape=sf.createOval(start,end,fill,outline,shade);
                     break;
+                default:
+                    shape=sf.createRectangle(start,end,fill,outline,shade);
             }
-            shape.draw(state);
+            shape.draw();
         }
+
+
     }
+
+
+
 }

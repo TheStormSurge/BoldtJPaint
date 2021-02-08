@@ -1,6 +1,7 @@
-package view.gui;
+package view.gui.shapes;
 import model.ShapeShadingType;
-import view.gui.shapes.Rectangle;
+import view.gui.MyPoint;
+import view.gui.PaintCanvas;
 import view.interfaces.IShape;
 
 import java.awt.*;
@@ -13,5 +14,11 @@ public class ShapeFactory {
     }
     public IShape createRectangle(MyPoint start, MyPoint end, Color fill, Color outline, ShapeShadingType sh){
         return new Rectangle(canvas,start,end,fill,outline,sh);
+    }
+    public IShape createTriangle(MyPoint start, MyPoint end, Color fill, Color outline, ShapeShadingType sh){
+        return new Triangle(canvas,start,end,fill,outline,sh);
+    }
+    public IShape createOval(MyPoint start, MyPoint end, Color fill, Color outline, ShapeShadingType sh){
+        return new Oval(canvas,start,end,fill,outline,sh);
     }
 }

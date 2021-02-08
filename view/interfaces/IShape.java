@@ -3,5 +3,5 @@ package view.interfaces;
 import model.persistence.ApplicationState;
 
 public interface IShape {
-    public void draw(ApplicationState state);
+    public void draw();
 }

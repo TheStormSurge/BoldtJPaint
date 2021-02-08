@@ -5,17 +5,16 @@ import controller.JPaintController;
 import model.ShapeColor;
 import model.ShapeType;
 import model.persistence.ApplicationState;
-import view.gui.Gui;
-import view.gui.GuiWindow;
-import view.gui.MouseListener;
-import view.gui.PaintCanvas;
+import view.gui.*;
 import view.interfaces.IGuiWindow;
+import view.interfaces.IShape;
 import view.interfaces.PaintCanvasBase;
 import view.interfaces.IUiModule;
 
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.EnumMap;
 
 public class Main {
@@ -27,6 +26,7 @@ public class Main {
         IJPaintController controller = new JPaintController(uiModule, appState);
         controller.setup();
 
+        ScreenShapes s = new ScreenShapes((PaintCanvas) paintCanvas);
         MouseListener ml = new MouseListener((PaintCanvas) paintCanvas,appState);
         paintCanvas.addMouseListener(ml);
 

@@ -1,10 +1,14 @@
-package view.gui;
+package view.gui.shapes;
 
 import model.ShapeShadingType;
+import view.gui.shape_command.DrawTriangle;
+import view.gui.MyPoint;
+import view.gui.PaintCanvas;
+import view.interfaces.IShape;
 
 import java.awt.*;
 
-public class Triangle {
+public class Triangle implements IShape {
     MyPoint start;
     MyPoint end;
     PaintCanvas canvas;
