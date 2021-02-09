@@ -7,7 +7,7 @@ import view.gui.PaintCanvas;
 import view.interfaces.IShape;
 import java.awt.*;
 
-public class Rectangle implements IShape {
+public class Ellipse implements IShape {
     public MyPoint start;
     public MyPoint end;
     PaintCanvas canvas;
@@ -19,7 +19,7 @@ public class Rectangle implements IShape {
     private int height;
     private int width;
 
-    public Rectangle(PaintCanvas c, MyPoint s, MyPoint e, Color f, Color o, ShapeShadingType sh){
+    public Ellipse(PaintCanvas c, MyPoint s, MyPoint e, Color f, Color o, ShapeShadingType sh){
         start=s;
         end=e;
         canvas=c;
@@ -31,10 +31,12 @@ public class Rectangle implements IShape {
         width= Math.abs(e.getX()-s.getX());
         height= Math.abs(e.getY()-s.getY());
     }
+
     public void draw(){
         ScreenShapes.add(this);
         new DrawShape(this).run();
     }
+    @Override
     public MyPoint getStart() {
         return start;
     }
@@ -42,23 +44,24 @@ public class Rectangle implements IShape {
     public MyPoint getEnd() {
         return end;
     }
+
     public void render(){
         Graphics2D graph=canvas.getGraphics2D();
         if (shade.equals("FILLED_IN")){
             graph.setColor(fill);
-            graph.fillRect(x, y,width,height);
+            graph.fillOval(x, y,width,height);
         }
         else if (shade.equals("OUTLINE")) {
             graph.setColor(fill);
             graph.setStroke(new BasicStroke(5));
-            graph.drawRect(x, y,width,height);
+            graph.drawOval(x, y,width,height);
         }
         else{ //FILLED IN w/ OUTLINE
             graph.setColor(fill);
-            graph.fillRect(x, y,width,height);
+            graph.fillOval(x, y,width,height);
             graph.setColor(outline);
             graph.setStroke(new BasicStroke(5));
-            graph.drawRect(x, y,width,height);
+            graph.drawOval(x, y,width,height);
         }
     }
 

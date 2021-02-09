@@ -32,7 +32,6 @@ public class MouseListener extends MouseAdapter {
         String active_shape= state.getActiveShapeType().toString();
         Color fill=Color.BLACK;
         Color outline=Color.WHITE;
-
         try {
             Field fieldf = Color.class.getField(state.getActivePrimaryColor().toString());
             Field fieldo = Color.class.getField(state.getActiveSecondaryColor().toString());
@@ -52,15 +51,30 @@ public class MouseListener extends MouseAdapter {
                     shape=sf.createTriangle(start,end,fill,outline,shade);
                     break;
                 case "ELLIPSE":
-                    shape=sf.createOval(start,end,fill,outline,shade);
+                    shape=sf.createEllipse(start,end,fill,outline,shade);
                     break;
                 default:
                     shape=sf.createRectangle(start,end,fill,outline,shade);
             }
             shape.draw();
         }
+        if(active_mode.equals("SELECT")){
+            SelectedShapes.clear();
+            IShape selector=sf.createRectangle(start,end,Color.CYAN,outline,shade);
+            MyPoint select1 =selector.getStart();
+            MyPoint select2= selector.getEnd();
+            for(IShape rendered: ScreenShapes.getShapes()){
+                MyPoint point1 = rendered.getStart();
+                MyPoint point2 = rendered.getEnd();
+                if(
+                select1.getX()<point2.getX()&&
+                select2.getX()>point1.getX()&&
+                select1.getY()<point2.getY()&&
+                select2.getY()>point1.getY()
+                ){SelectedShapes.add(rendered);}
+            }
 
-
+        }
     }
 
 

@@ -18,7 +18,7 @@ public class ShapeFactory {
     public IShape createTriangle(MyPoint start, MyPoint end, Color fill, Color outline, ShapeShadingType sh){
         return new Triangle(canvas,start,end,fill,outline,sh);
     }
-    public IShape createOval(MyPoint start, MyPoint end, Color fill, Color outline, ShapeShadingType sh){
-        return new Oval(canvas,start,end,fill,outline,sh);
+    public IShape createEllipse(MyPoint start, MyPoint end, Color fill, Color outline, ShapeShadingType sh){
+        return new Ellipse(canvas,start,end,fill,outline,sh);
     }
 }

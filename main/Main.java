@@ -30,9 +30,6 @@ public class Main {
         MouseListener ml = new MouseListener((PaintCanvas) paintCanvas,appState);
         paintCanvas.addMouseListener(ml);
 
-
-
-
         // For example purposes only; remove all lines below from your final project.
 
         try {

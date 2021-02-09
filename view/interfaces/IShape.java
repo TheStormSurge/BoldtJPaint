@@ -1,7 +1,9 @@
 package view.interfaces;
-
-import model.persistence.ApplicationState;
+import view.gui.MyPoint;
 
 public interface IShape {
-    public void draw();
+    void draw();
+    void render();
+    MyPoint getStart();
+    MyPoint getEnd();
 }
