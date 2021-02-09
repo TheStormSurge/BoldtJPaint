@@ -11,7 +11,7 @@ public class ScreenShapes {
     private static PaintCanvas p;
 
     public ScreenShapes(PaintCanvas pa){
-        g= p.getGraphics2D();
+        g= pa.getGraphics2D();
         p=pa;
     }
     public static void delete(IShape s){
