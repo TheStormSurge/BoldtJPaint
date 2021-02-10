@@ -14,6 +14,7 @@ public class DrawShape implements ICommand, IUndoable {
     }
     public void run() {
         shape.render();
+        //System.out.println(shape.getEnd().getX() + " " + shape.getEnd().getY());
         if(!redo){
             CommandHistory.add(this);
         }

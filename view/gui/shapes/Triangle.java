@@ -18,6 +18,12 @@ public class Triangle implements IShape {
     String shade;
     int[] xs;
     int[] ys;
+    MyPoint left;
+    MyPoint right;
+    int width;
+    int height;
+    int x;
+    int y;
 
     public Triangle(PaintCanvas c, MyPoint s, MyPoint e, Color f, Color o, ShapeShadingType sh){
         start=s;
@@ -33,17 +39,23 @@ public class Triangle implements IShape {
         fill=f;
         outline=o;
         shade=sh.toString();
+        width= Math.abs(e.getX()-s.getX());
+        height= Math.abs(e.getY()-s.getY());
+        x=Math.min(s.getX(),e.getX());
+        y=Math.min(s.getY(),e.getY());
+        left = new MyPoint(new Point(x,y));
+        right= new MyPoint(new Point(x+width,y+height));
     }
     public void draw(){
         ScreenShapes.add(this);
         new DrawShape(this).run();
     }
     public MyPoint getStart() {
-        return start;
+        return left;
     }
     @Override
     public MyPoint getEnd() {
-        return end;
+        return right;
     }
 
     public void render(){

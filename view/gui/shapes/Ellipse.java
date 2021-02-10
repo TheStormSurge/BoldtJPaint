@@ -18,6 +18,8 @@ public class Ellipse implements IShape {
     private int y;
     private int height;
     private int width;
+    MyPoint left;
+    MyPoint right;
 
     public Ellipse(PaintCanvas c, MyPoint s, MyPoint e, Color f, Color o, ShapeShadingType sh){
         start=s;
@@ -30,6 +32,8 @@ public class Ellipse implements IShape {
         y=Math.min(s.getY(),e.getY());
         width= Math.abs(e.getX()-s.getX());
         height= Math.abs(e.getY()-s.getY());
+        left = new MyPoint(new Point(x,y));
+        right= new MyPoint(new Point(x+width,y+height));
     }
 
     public void draw(){
@@ -38,11 +42,11 @@ public class Ellipse implements IShape {
     }
     @Override
     public MyPoint getStart() {
-        return start;
+        return left;
     }
     @Override
     public MyPoint getEnd() {
-        return end;
+        return right;
     }
 
     public void render(){

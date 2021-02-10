@@ -18,6 +18,8 @@ public class Rectangle implements IShape {
     private int y;
     private int height;
     private int width;
+    MyPoint left;
+    MyPoint right;
 
     public Rectangle(PaintCanvas c, MyPoint s, MyPoint e, Color f, Color o, ShapeShadingType sh){
         start=s;
@@ -30,17 +32,19 @@ public class Rectangle implements IShape {
         y=Math.min(s.getY(),e.getY());
         width= Math.abs(e.getX()-s.getX());
         height= Math.abs(e.getY()-s.getY());
+        left = new MyPoint(new Point(x,y));
+        right= new MyPoint(new Point(x+width,y+height));
     }
     public void draw(){
         ScreenShapes.add(this);
         new DrawShape(this).run();
     }
     public MyPoint getStart() {
-        return start;
+        return left;
     }
     @Override
     public MyPoint getEnd() {
-        return end;
+        return right;
     }
     public void render(){
         Graphics2D graph=canvas.getGraphics2D();

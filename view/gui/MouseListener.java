@@ -73,8 +73,8 @@ public class MouseListener extends MouseAdapter {
                 select2.getY()>point1.getY()
                 ){SelectedShapes.add(rendered);}
             }
-
         }
+        if(active_mode.equals("MOVE")){}
     }
 
 
