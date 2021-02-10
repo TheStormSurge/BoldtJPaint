@@ -4,6 +4,7 @@ import view.gui.ScreenShapes;
 import view.gui.shape_command.DrawShape;
 import view.gui.MyPoint;
 import view.gui.PaintCanvas;
+import view.gui.shape_command.MoveShape;
 import view.interfaces.IShape;
 import java.awt.*;
 
@@ -36,6 +37,8 @@ public class Rectangle implements IShape {
         right= new MyPoint(new Point(x+width,y+height));
     }
     public void draw(){
+        System.out.println(Integer.toString(x));
+        System.out.println(Integer.toString(y));
         ScreenShapes.add(this);
         new DrawShape(this).run();
     }
@@ -65,5 +68,13 @@ public class Rectangle implements IShape {
             graph.drawRect(x, y,width,height);
         }
     }
+    public void move(MyPoint e){
+        new MoveShape(this).run();
+    }
+    public void setStart(MyPoint e){
+        x=e.getX();
+        y=e.getY();
+    }
+
 
 }

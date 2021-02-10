@@ -74,7 +74,12 @@ public class MouseListener extends MouseAdapter {
                 ){SelectedShapes.add(rendered);}
             }
         }
-        if(active_mode.equals("MOVE")){}
+        if(active_mode.equals("MOVE")){
+            for(IShape sha:  SelectedShapes.getShapes()){
+                sha.move(end);
+            }
+
+        }
     }
 
 

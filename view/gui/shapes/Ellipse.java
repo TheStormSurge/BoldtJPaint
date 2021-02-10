@@ -68,5 +68,6 @@ public class Ellipse implements IShape {
             graph.drawOval(x, y,width,height);
         }
     }
-
+    public void setStart(MyPoint e){}
+    public void move(MyPoint e){}
 }

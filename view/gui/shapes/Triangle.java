@@ -58,6 +58,9 @@ public class Triangle implements IShape {
         return right;
     }
 
+    public void move(MyPoint e){
+
+    }
     public void render(){
         Graphics2D graph = canvas.getGraphics2D();
         if (shade.equals("FILLED_IN")){
@@ -76,5 +79,8 @@ public class Triangle implements IShape {
             graph.setStroke(new BasicStroke(5));
             graph.drawPolygon(xs, ys,3);
         }
+    }
+    public void setStart(MyPoint p){
+
     }
 }

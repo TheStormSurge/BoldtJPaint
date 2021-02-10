@@ -13,4 +13,8 @@ public class SelectedShapes {
     public static void clear(){
         list.clear();
     }
+
+    public static ArrayList<IShape> getShapes(){
+        return list;
+    }
 }
