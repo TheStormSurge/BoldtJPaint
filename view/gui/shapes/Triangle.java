@@ -31,10 +31,6 @@ public class Triangle implements IShape {
         canvas=c;
         fill=f;
         outline=o;
-        int[] calcx = {s.getX(),e.getX(),s.getX()};
-        int[] calcy = {s.getY(),e.getY(), e.getY()};
-        xs=calcx;
-        ys=calcy;
         canvas=c;
         fill=f;
         outline=o;
@@ -45,6 +41,10 @@ public class Triangle implements IShape {
         y=Math.min(s.getY(),e.getY());
         left = new MyPoint(new Point(x,y));
         right= new MyPoint(new Point(x+width,y+height));
+        int[] calcx = {left.getX(),right.getX(),right.getX()};
+        int[] calcy = {left.getY(),right.getY(), left.getY()};
+        xs=calcx;
+        ys=calcy;
     }
     public void draw(){
         ScreenShapes.add(this);
@@ -54,12 +54,18 @@ public class Triangle implements IShape {
         return left;
     }
     @Override
-    public MyPoint getEnd() {
-        return right;
-    }
+    public MyPoint getEnd() { return right; }
 
     public void move(MyPoint e){
-
+        x = e.getX();
+        y = e.getY();
+        left= new MyPoint(new Point(x,y));
+        right= new MyPoint(new Point(x+width,y+height));
+        int[] calcx = {left.getX(),right.getX(),right.getX()};
+        int[] calcy = {left.getY(),right.getY(), left.getY()};
+        xs=calcx;
+        ys=calcy;
+        ScreenShapes.render();
     }
     public void render(){
         Graphics2D graph = canvas.getGraphics2D();

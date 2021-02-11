@@ -1,6 +1,7 @@
 package view.gui;
 import model.ShapeShadingType;
 import model.persistence.ApplicationState;
+import view.gui.shape_command.MoveShapes;
 import view.gui.shapes.ShapeFactory;
 import view.interfaces.IShape;
 import java.awt.*;
@@ -75,10 +76,7 @@ public class MouseListener extends MouseAdapter {
             }
         }
         if(active_mode.equals("MOVE")){
-            for(IShape sha:  SelectedShapes.getShapes()){
-                sha.move(end);
-            }
-
+            new MoveShapes(end).run();
         }
     }
 

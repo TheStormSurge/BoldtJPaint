@@ -69,5 +69,13 @@ public class Ellipse implements IShape {
         }
     }
     public void setStart(MyPoint e){}
-    public void move(MyPoint e){}
+    public void move(MyPoint e){
+        x = e.getX();
+        y = e.getY();
+        left= new MyPoint(new Point(x,y));
+        right= new MyPoint(new Point(x+width,y+height));
+        ScreenShapes.render();
+
+
+    }
 }
