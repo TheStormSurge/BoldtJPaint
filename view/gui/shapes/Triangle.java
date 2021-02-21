@@ -56,9 +56,9 @@ public class Triangle implements IShape {
     @Override
     public MyPoint getEnd() { return right; }
 
-    public void move(MyPoint e){
-        x = e.getX();
-        y = e.getY();
+    public void move(int offsetx, int offsety){
+        x=x+offsetx;
+        y=y+offsety;
         left= new MyPoint(new Point(x,y));
         right= new MyPoint(new Point(x+width,y+height));
         int[] calcx = {left.getX(),right.getX(),right.getX()};
@@ -85,8 +85,5 @@ public class Triangle implements IShape {
             graph.setStroke(new BasicStroke(5));
             graph.drawPolygon(xs, ys,3);
         }
-    }
-    public void setStart(MyPoint p){
-
     }
 }

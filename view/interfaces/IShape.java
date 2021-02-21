@@ -4,8 +4,7 @@ import view.gui.MyPoint;
 public interface IShape {
     void draw();
     void render();
-    void move(MyPoint p);
-    void setStart(MyPoint p);
+    void move(int xoffset, int yoffset);
     MyPoint getStart();
     MyPoint getEnd();
 }

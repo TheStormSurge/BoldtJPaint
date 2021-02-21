@@ -28,6 +28,10 @@ public class MouseListener extends MouseAdapter {
 
     public void mouseReleased(MouseEvent e) {
         end=new MyPoint(e.getPoint());
+        System.out.println("START:"+start.getX()+","+start.getY());
+        System.out.println("END:"+end.getX()+","+end.getY());
+
+
         String active_mode=state.getActiveMouseMode().toString();
         ShapeShadingType shade = state.getActiveShapeShadingType();
         String active_shape= state.getActiveShapeType().toString();
@@ -75,8 +79,15 @@ public class MouseListener extends MouseAdapter {
                 ){SelectedShapes.add(rendered);}
             }
         }
+
+        int offsetx= end.getX()-start.getX();
+        int offsety= end.getY()-start.getY();
+
+        System.out.println("X-OFFSET:"+offsetx);
+        System.out.println("Y-OFFSET:"+offsety);
+
         if(active_mode.equals("MOVE")){
-            new MoveShapes(end).run();
+            new MoveShapes(offsetx,offsety).run();
         }
     }
 

@@ -66,21 +66,12 @@ public class Rectangle implements IShape {
         }
     }
 
-    public void move(MyPoint e){
-        //new MoveShape(this,e).run();
-        //ScreenShapes.render()
-        //System.out.println("MOVING");
-        x=e.getX();
-        y=e.getY();
+    public void move(int offsetx, int offsety){
+        x=x+offsetx;
+        y=y+offsety;
         left= new MyPoint(new Point(x,y));
         right= new MyPoint(new Point(x+width,y+height));
         ScreenShapes.render();
     }
-
-    public void setStart(MyPoint e){
-        x=e.getX();
-        y=e.getY();
-    }
-
 
 }
