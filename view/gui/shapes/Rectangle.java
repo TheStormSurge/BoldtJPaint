@@ -4,6 +4,9 @@ import view.gui.ScreenShapes;
 import view.gui.shape_command.DrawShape;
 import view.gui.MyPoint;
 import view.gui.PaintCanvas;
+import view.gui.state.HighlightState;
+import view.gui.state.NormalState;
+import view.gui.state.ShapeState;
 import view.interfaces.IShape;
 import java.awt.*;
 
@@ -11,6 +14,7 @@ public class Rectangle implements IShape, Cloneable {
     public MyPoint start;
     public MyPoint end;
     PaintCanvas canvas;
+    ShapeState state;
     Color fill;
     Color outline;
     String shade;
@@ -22,6 +26,7 @@ public class Rectangle implements IShape, Cloneable {
     MyPoint right;
 
     public Rectangle(PaintCanvas c, MyPoint s, MyPoint e, Color f, Color o, ShapeShadingType sh){
+        state=new NormalState();
         start=s;
         end=e;
         canvas=c;
@@ -35,23 +40,35 @@ public class Rectangle implements IShape, Cloneable {
         left = new MyPoint(new Point(x,y));
         right= new MyPoint(new Point(x+width,y+height));
     }
+
     public void draw(){
         ScreenShapes.add(this);
         new DrawShape(this).run();
     }
+
     public MyPoint getStart() {
         return left;
     }
+
     public IShape clone(){
         Rectangle p =this;
         try {return (IShape)super.clone();}
         catch (Exception e){e.printStackTrace();return p;}
     }
-    @Override
+
+    public void highlighted(boolean b){
+        if(b){this.state=new HighlightState();}
+        else{this.state=new NormalState();}
+    }
+
     public MyPoint getEnd() {
         return right;
     }
     public void render(){
+        this.state.draw(this,canvas);
+    }
+
+    public void base(){
         Graphics2D graph=canvas.getGraphics2D();
         if (shade.equals("FILLED_IN")){
             graph.setColor(fill);

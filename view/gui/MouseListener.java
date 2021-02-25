@@ -71,7 +71,7 @@ public class MouseListener extends MouseAdapter {
                 select2.getX()>point1.getX()&&
                 select1.getY()<point2.getY()&&
                 select2.getY()>point1.getY()
-                ){SelectedShapes.add(rendered);}
+                ){SelectedShapes.add(rendered);rendered.highlighted(true);ScreenShapes.render();}
             }
         }
         int offsetx= end.getX()-start.getX();

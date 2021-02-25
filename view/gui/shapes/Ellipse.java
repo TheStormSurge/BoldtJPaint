@@ -4,6 +4,9 @@ import view.gui.ScreenShapes;
 import view.gui.shape_command.DrawShape;
 import view.gui.MyPoint;
 import view.gui.PaintCanvas;
+import view.gui.state.HighlightState;
+import view.gui.state.NormalState;
+import view.gui.state.ShapeState;
 import view.interfaces.IShape;
 import java.awt.*;
 
@@ -11,6 +14,7 @@ public class Ellipse implements IShape, Cloneable {
     public MyPoint start;
     public MyPoint end;
     PaintCanvas canvas;
+    ShapeState state;
     Color fill;
     Color outline;
     String shade;
@@ -22,6 +26,7 @@ public class Ellipse implements IShape, Cloneable {
     MyPoint right;
 
     public Ellipse(PaintCanvas c, MyPoint s, MyPoint e, Color f, Color o, ShapeShadingType sh){
+        state=new NormalState();
         start=s;
         end=e;
         canvas=c;
@@ -49,12 +54,17 @@ public class Ellipse implements IShape, Cloneable {
     public MyPoint getStart() {
         return left;
     }
+
+    @Override
+    public void highlighted(boolean b) {
+        if(b){this.state=new HighlightState();}
+        else{this.state=new NormalState();}
+    }
     @Override
     public MyPoint getEnd() {
         return right;
     }
-
-    public void render(){
+    public void base(){
         Graphics2D graph=canvas.getGraphics2D();
         if (shade.equals("FILLED_IN")){
             graph.setColor(fill);
@@ -72,6 +82,9 @@ public class Ellipse implements IShape, Cloneable {
             graph.setStroke(new BasicStroke(5));
             graph.drawOval(x, y,width,height);
         }
+    }
+    public void render(){
+        this.state.draw(this,canvas);
     }
     public void move(int offsetx, int offsety){
         x=x+offsetx;

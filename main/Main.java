@@ -25,7 +25,6 @@ public class Main {
         ApplicationState appState = new ApplicationState(uiModule);
         IJPaintController controller = new JPaintController(uiModule, appState);
         controller.setup();
-
         ScreenShapes s = new ScreenShapes((PaintCanvas) paintCanvas);
         MouseListener ml = new MouseListener((PaintCanvas) paintCanvas,appState);
         paintCanvas.addMouseListener(ml);
@@ -48,7 +47,7 @@ public class Main {
 //        graphics2d.setColor(Color.BLUE);
 //        graphics2d.drawRect(12, 13, 200, 400);
 //
-//        // Selected Shape
+        // Selected Shape
 //        Stroke stroke = new BasicStroke(3, BasicStroke.CAP_BUTT, BasicStroke.JOIN_BEVEL, 1, new float[]{9}, 0);
 //        graphics2d.setStroke(stroke);
 //        graphics2d.setColor(Color.BLACK);

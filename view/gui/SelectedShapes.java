@@ -8,9 +8,10 @@ public class SelectedShapes {
         list.add(s);
     }
     public static void clear(){
+        for(IShape s: list){s.highlighted(false);}
         list.clear();
+        ScreenShapes.render();
     }
-
     public static ArrayList<IShape> getShapes(){
         return list;
     }

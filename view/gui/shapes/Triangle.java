@@ -5,6 +5,9 @@ import view.gui.ScreenShapes;
 import view.gui.shape_command.DrawShape;
 import view.gui.MyPoint;
 import view.gui.PaintCanvas;
+import view.gui.state.HighlightState;
+import view.gui.state.NormalState;
+import view.gui.state.ShapeState;
 import view.interfaces.IShape;
 
 import java.awt.*;
@@ -12,6 +15,7 @@ import java.awt.*;
 public class Triangle implements IShape,Cloneable {
     public MyPoint start;
     public MyPoint end;
+    ShapeState state;
     PaintCanvas canvas;
     Color fill;
     Color outline;
@@ -26,6 +30,7 @@ public class Triangle implements IShape,Cloneable {
     int y;
 
     public Triangle(PaintCanvas c, MyPoint s, MyPoint e, Color f, Color o, ShapeShadingType sh){
+        state=new NormalState();
         start=s;
         end=e;
         canvas=c;
@@ -46,6 +51,32 @@ public class Triangle implements IShape,Cloneable {
         xs=calcx;
         ys=calcy;
     }
+    public void base(){
+        Graphics2D graph = canvas.getGraphics2D();
+        if (shade.equals("FILLED_IN")){
+            graph.setColor(fill);
+            graph.fillPolygon(xs,ys,3);
+        }
+        else if (shade.equals("OUTLINE")) {
+            graph.setColor(fill);
+            graph.setStroke(new BasicStroke(5));
+            graph.drawPolygon(xs,ys,3);
+        }
+        else{ //FILLED IN w/ OUTLINE
+            graph.setColor(fill);
+            graph.fillPolygon(xs,ys,3);
+            graph.setColor(outline);
+            graph.setStroke(new BasicStroke(5));
+            graph.drawPolygon(xs, ys,3);
+        }
+    }
+
+    @Override
+    public void highlighted(boolean b) {
+        if(b){this.state=new HighlightState();}
+        else{this.state=new NormalState();}
+    }
+
     public void draw(){
         ScreenShapes.add(this);
         new DrawShape(this).run();
@@ -73,22 +104,6 @@ public class Triangle implements IShape,Cloneable {
         ScreenShapes.render();
     }
     public void render(){
-        Graphics2D graph = canvas.getGraphics2D();
-        if (shade.equals("FILLED_IN")){
-            graph.setColor(fill);
-            graph.fillPolygon(xs,ys,3);
-        }
-        else if (shade.equals("OUTLINE")) {
-            graph.setColor(fill);
-            graph.setStroke(new BasicStroke(5));
-            graph.drawPolygon(xs,ys,3);
-        }
-        else{ //FILLED IN w/ OUTLINE
-            graph.setColor(fill);
-            graph.fillPolygon(xs,ys,3);
-            graph.setColor(outline);
-            graph.setStroke(new BasicStroke(5));
-            graph.drawPolygon(xs, ys,3);
-        }
+        this.state.draw(this,canvas);
     }
 }
