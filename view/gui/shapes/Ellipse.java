@@ -7,7 +7,7 @@ import view.gui.PaintCanvas;
 import view.interfaces.IShape;
 import java.awt.*;
 
-public class Ellipse implements IShape {
+public class Ellipse implements IShape, Cloneable {
     public MyPoint start;
     public MyPoint end;
     PaintCanvas canvas;
@@ -39,6 +39,11 @@ public class Ellipse implements IShape {
     public void draw(){
         ScreenShapes.add(this);
         new DrawShape(this).run();
+    }
+    public IShape clone(){
+        Ellipse p =this;
+        try {return (IShape)super.clone();}
+        catch (Exception e){e.printStackTrace();return p;}
     }
     @Override
     public MyPoint getStart() {

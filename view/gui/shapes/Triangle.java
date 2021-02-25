@@ -9,7 +9,7 @@ import view.interfaces.IShape;
 
 import java.awt.*;
 
-public class Triangle implements IShape {
+public class Triangle implements IShape,Cloneable {
     public MyPoint start;
     public MyPoint end;
     PaintCanvas canvas;
@@ -41,14 +41,19 @@ public class Triangle implements IShape {
         y=Math.min(s.getY(),e.getY());
         left = new MyPoint(new Point(x,y));
         right= new MyPoint(new Point(x+width,y+height));
-        int[] calcx = {left.getX(),right.getX(),right.getX()};
-        int[] calcy = {left.getY(),right.getY(), left.getY()};
+        int[] calcx = {left.getX(),right.getX(),left.getX()};
+        int[] calcy = {left.getY(),right.getY(), right.getY()};
         xs=calcx;
         ys=calcy;
     }
     public void draw(){
         ScreenShapes.add(this);
         new DrawShape(this).run();
+    }
+    public IShape clone(){
+        Triangle p =this;
+        try {return (IShape)super.clone();}
+        catch (Exception e){e.printStackTrace();return p;}
     }
     public MyPoint getStart() {
         return left;
@@ -61,8 +66,8 @@ public class Triangle implements IShape {
         y=y+offsety;
         left= new MyPoint(new Point(x,y));
         right= new MyPoint(new Point(x+width,y+height));
-        int[] calcx = {left.getX(),right.getX(),right.getX()};
-        int[] calcy = {left.getY(),right.getY(), left.getY()};
+        int[] calcx = {left.getX(),right.getX(),left.getX()};
+        int[] calcy = {left.getY(),right.getY(), right.getY()};
         xs=calcx;
         ys=calcy;
         ScreenShapes.render();

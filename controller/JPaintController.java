@@ -4,6 +4,9 @@ import model.interfaces.IApplicationState;
 import view.EventName;
 import view.gui.RedoCommand;
 import view.gui.UndoCommand;
+import view.gui.shape_command.CopyCommand;
+import view.gui.shape_command.DeleteCommand;
+import view.gui.shape_command.PasteCommand;
 import view.interfaces.IUiModule;
 
 public class JPaintController implements IJPaintController {
@@ -14,12 +17,10 @@ public class JPaintController implements IJPaintController {
         this.uiModule = uiModule;
         this.applicationState = applicationState;
     }
-
     @Override
     public void setup() {
         setupEvents();
     }
-
     private void setupEvents() {
         uiModule.addEvent(EventName.CHOOSE_SHAPE, () -> applicationState.setActiveShape());
         uiModule.addEvent(EventName.CHOOSE_PRIMARY_COLOR, () -> applicationState.setActivePrimaryColor());
@@ -28,5 +29,8 @@ public class JPaintController implements IJPaintController {
         uiModule.addEvent(EventName.CHOOSE_MOUSE_MODE, () -> applicationState.setActiveStartAndEndPointMode());
         uiModule.addEvent(EventName.UNDO, () -> new UndoCommand().run());
         uiModule.addEvent(EventName.REDO, () -> new RedoCommand().run());
+        uiModule.addEvent(EventName.COPY, () -> new CopyCommand().run());
+        uiModule.addEvent(EventName.PASTE,() -> new PasteCommand().run());
+        uiModule.addEvent(EventName.DELETE,() -> new DeleteCommand().run());
     }
 }

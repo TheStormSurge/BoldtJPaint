@@ -7,7 +7,7 @@ import view.gui.PaintCanvas;
 import view.interfaces.IShape;
 import java.awt.*;
 
-public class Rectangle implements IShape {
+public class Rectangle implements IShape, Cloneable {
     public MyPoint start;
     public MyPoint end;
     PaintCanvas canvas;
@@ -41,6 +41,11 @@ public class Rectangle implements IShape {
     }
     public MyPoint getStart() {
         return left;
+    }
+    public IShape clone(){
+        Rectangle p =this;
+        try {return (IShape)super.clone();}
+        catch (Exception e){e.printStackTrace();return p;}
     }
     @Override
     public MyPoint getEnd() {

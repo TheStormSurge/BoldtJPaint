@@ -7,4 +7,5 @@ public interface IShape {
     void move(int xoffset, int yoffset);
     MyPoint getStart();
     MyPoint getEnd();
+    IShape clone();
 }
