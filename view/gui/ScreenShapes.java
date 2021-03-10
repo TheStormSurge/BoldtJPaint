@@ -16,9 +16,13 @@ public class ScreenShapes {
     }
     public static void delete(IShape s){
         list.remove(s);
+        System.out.println(list);
+        render();
     }
     public static void add(IShape s){
         list.add(s);
+        System.out.println(list);
+        render();
     }
     public static void render(){
         g.setColor(Color.WHITE);

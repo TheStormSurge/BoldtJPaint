@@ -4,9 +4,7 @@ import model.interfaces.IApplicationState;
 import view.EventName;
 import view.gui.RedoCommand;
 import view.gui.UndoCommand;
-import view.gui.shape_command.CopyCommand;
-import view.gui.shape_command.DeleteCommand;
-import view.gui.shape_command.PasteCommand;
+import view.gui.shape_command.*;
 import view.interfaces.IUiModule;
 
 public class JPaintController implements IJPaintController {
@@ -32,5 +30,7 @@ public class JPaintController implements IJPaintController {
         uiModule.addEvent(EventName.COPY, () -> new CopyCommand().run());
         uiModule.addEvent(EventName.PASTE,() -> new PasteCommand().run());
         uiModule.addEvent(EventName.DELETE,() -> new DeleteCommand().run());
+        uiModule.addEvent(EventName.GROUP,() -> new GroupCommand().run());
+        uiModule.addEvent(EventName.UNGROUP,() -> new UnGroupCommand().run());
     }
 }
