@@ -23,6 +23,7 @@ public class GroupCommand implements ICommand, IUndoable {
         mygroup=group;
         ScreenShapes.add(group);
         CommandHistory.add(this);
+        SelectedShapes.clear();
     }
 
     @Override
@@ -32,6 +33,7 @@ public class GroupCommand implements ICommand, IUndoable {
             ScreenShapes.add(s);
         }
         ScreenShapes.delete(mygroup);
+        SelectedShapes.clear();
     }
 
     @Override
@@ -40,5 +42,6 @@ public class GroupCommand implements ICommand, IUndoable {
             ScreenShapes.delete(s);
         }
         ScreenShapes.add(mygroup);
+        SelectedShapes.clear();
     }
 }

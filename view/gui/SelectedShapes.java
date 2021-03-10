@@ -7,6 +7,7 @@ public class SelectedShapes {
     public static void add(IShape s){
         list.add(s);
     }
+    public static void remove(IShape s){list.remove(s);}
     public static void clear(){
         for(IShape s: list){s.highlighted(false);}
         list.clear();
