@@ -1,5 +1,4 @@
 package view.gui.shape_command;
-
 import view.gui.CommandHistory;
 import view.gui.ScreenShapes;
 import view.gui.SelectedShapes;

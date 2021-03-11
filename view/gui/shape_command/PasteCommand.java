@@ -2,6 +2,7 @@ package view.gui.shape_command;
 import view.gui.Clipboard;
 import view.gui.CommandHistory;
 import view.gui.ScreenShapes;
+import view.gui.SelectedShapes;
 import view.interfaces.ICommand;
 import view.interfaces.IShape;
 import view.interfaces.IUndoable;
@@ -20,17 +21,18 @@ public class PasteCommand implements ICommand, IUndoable {
             newshape.move(20, 20);
         }
         CommandHistory.add(this);
+        SelectedShapes.clear();
+        for(IShape s : ScreenShapes.getShapes()){s.highlighted(false);}
     }
 
     @Override
     public void undo() {
         for(IShape s: shapesadded){ScreenShapes.delete(s);}
-        ScreenShapes.render();
     }
 
     @Override
     public void redo() {
         for(IShape s: shapesadded){ScreenShapes.add(s);}
-        ScreenShapes.render();
+        for(IShape s : ScreenShapes.getShapes()){s.highlighted(false);}
     }
 }

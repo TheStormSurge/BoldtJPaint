@@ -1,16 +1,25 @@
 package view.gui.shapes;
-
+import view.Board;
 import view.gui.MyPoint;
+import view.gui.state.HighlightState;
+import view.gui.state.NormalState;
+import view.gui.state.ShapeState;
 import view.interfaces.IShape;
 
 import java.util.ArrayList;
 
-public class CompositeShape implements IShape {
+public class CompositeShape implements IShape, Cloneable {
     private ArrayList<IShape> grouped = new ArrayList<>();
     MyPoint start;
     MyPoint end;
+    ShapeState state;
+
+    public CompositeShape(){
+        state=new NormalState();
+    }
 
     public void add(IShape s) {
+        //TODO DRAW OUTLINE
         grouped.add(s);
         start=grouped.get(0).getStart();
         end=grouped.get(0).getEnd();
@@ -24,33 +33,24 @@ public class CompositeShape implements IShape {
         }
     }
 
-    public void remove(IShape s){
-        grouped.remove(s);
-    }
-
     public ArrayList<IShape> getComposition() {
         return grouped;
     }
 
     @Override
     public void draw() {
-        for(IShape shape : grouped){
-            shape.draw();
-        }
+        for(IShape shape : grouped){shape.draw();}
     }
 
     @Override
     public void render() {
-        for(IShape shape : grouped){
-            shape.render();
-        }
+        this.state.draw(this, Board.getCanvas());
+        for(IShape shape : grouped){shape.render();}
     }
 
     @Override
     public void base() {
-        for(IShape shape : grouped){
-            shape.base();
-        }
+        for(IShape shape : grouped){shape.base();}
     }
 
     @Override
@@ -71,14 +71,15 @@ public class CompositeShape implements IShape {
     }
 
     @Override
-    public IShape clone() {
-        return null;
+    public IShape clone(){
+        CompositeShape p =this;
+        try {return (IShape)super.clone();}
+        catch (Exception e){e.printStackTrace();return p;}
     }
 
     @Override
-    public void highlighted(boolean b) {
-        for(IShape shape : grouped){
-            shape.highlighted(b);
-        }
+    public void highlighted(boolean b){
+        if(b){this.state=new HighlightState();}
+        else{this.state=new NormalState();}
     }
 }

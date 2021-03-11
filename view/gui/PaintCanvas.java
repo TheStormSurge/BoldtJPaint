@@ -1,8 +1,5 @@
 package view.gui;
-
 import view.interfaces.PaintCanvasBase;
-
-import javax.swing.JComponent;
 import java.awt.*;
 
 public class PaintCanvas extends PaintCanvasBase {

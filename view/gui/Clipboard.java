@@ -9,7 +9,6 @@ public class Clipboard {
     public static void clear(){
         list.clear();
     }
-
     public static ArrayList<IShape> getShapes(){
         return list;
     }

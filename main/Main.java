@@ -5,6 +5,7 @@ import controller.JPaintController;
 import model.ShapeColor;
 import model.ShapeType;
 import model.persistence.ApplicationState;
+import view.Board;
 import view.gui.*;
 import view.interfaces.IGuiWindow;
 import view.interfaces.IShape;
@@ -25,6 +26,7 @@ public class Main {
         ApplicationState appState = new ApplicationState(uiModule);
         IJPaintController controller = new JPaintController(uiModule, appState);
         controller.setup();
+        new Board((PaintCanvas) paintCanvas);
         ScreenShapes s = new ScreenShapes((PaintCanvas) paintCanvas);
         MouseListener ml = new MouseListener((PaintCanvas) paintCanvas,appState);
         paintCanvas.addMouseListener(ml);

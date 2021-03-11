@@ -1,68 +1,14 @@
 package view.gui.shapes;
 import model.ShapeShadingType;
-import view.gui.ScreenShapes;
-import view.gui.shape_command.DrawShape;
 import view.gui.MyPoint;
 import view.gui.PaintCanvas;
-import view.gui.state.HighlightState;
-import view.gui.state.NormalState;
-import view.gui.state.ShapeState;
 import view.interfaces.IShape;
 import java.awt.*;
 
-public class Ellipse implements IShape, Cloneable {
-    public MyPoint start;
-    public MyPoint end;
-    PaintCanvas canvas;
-    ShapeState state;
-    Color fill;
-    Color outline;
-    String shade;
-    private int x;
-    private int y;
-    private int height;
-    private int width;
-    MyPoint left;
-    MyPoint right;
+public class Ellipse extends AbstractShape implements IShape, Cloneable {
 
     public Ellipse(PaintCanvas c, MyPoint s, MyPoint e, Color f, Color o, ShapeShadingType sh){
-        state=new NormalState();
-        start=s;
-        end=e;
-        canvas=c;
-        fill=f;
-        outline=o;
-        shade=sh.toString();
-        x=Math.min(s.getX(),e.getX());
-        y=Math.min(s.getY(),e.getY());
-        width= Math.abs(e.getX()-s.getX());
-        height= Math.abs(e.getY()-s.getY());
-        left = new MyPoint(new Point(x,y));
-        right= new MyPoint(new Point(x+width,y+height));
-    }
-
-    public void draw(){
-        ScreenShapes.add(this);
-        new DrawShape(this).run();
-    }
-    public IShape clone(){
-        Ellipse p =this;
-        try {return (IShape)super.clone();}
-        catch (Exception e){e.printStackTrace();return p;}
-    }
-    @Override
-    public MyPoint getStart() {
-        return left;
-    }
-
-    @Override
-    public void highlighted(boolean b) {
-        if(b){this.state=new HighlightState();}
-        else{this.state=new NormalState();}
-    }
-    @Override
-    public MyPoint getEnd() {
-        return right;
+        super(c,s,e,f,o,sh);
     }
     public void base(){
         Graphics2D graph=canvas.getGraphics2D();
@@ -82,15 +28,5 @@ public class Ellipse implements IShape, Cloneable {
             graph.setStroke(new BasicStroke(5));
             graph.drawOval(x, y,width,height);
         }
-    }
-    public void render(){
-        this.state.draw(this,canvas);
-    }
-    public void move(int offsetx, int offsety){
-        x=x+offsetx;
-        y=y+offsety;
-        left= new MyPoint(new Point(x,y));
-        right= new MyPoint(new Point(x+width,y+height));
-        ScreenShapes.render();
     }
 }
