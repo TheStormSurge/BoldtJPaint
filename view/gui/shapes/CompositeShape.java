@@ -1,6 +1,7 @@
 package view.gui.shapes;
 import view.Board;
 import view.gui.MyPoint;
+import view.gui.ScreenShapes;
 import view.gui.state.HighlightState;
 import view.gui.state.NormalState;
 import view.gui.state.ShapeState;
@@ -20,22 +21,43 @@ public class CompositeShape implements IShape, Cloneable {
     }
 
     public void add(IShape s) {
-        //TODO DRAW OUTLINE
         grouped.add(s);
-        start=grouped.get(0).getStart();
-        end=grouped.get(0).getEnd();
+        if(grouped.size()==1) {
+            start = grouped.get(0).getStart();
+            end = grouped.get(0).getEnd();
+            int leftmostx=grouped.get(0).getStart().getX();
+            int lowesty=grouped.get(0).getStart().getY();
+            int rightmostx=grouped.get(0).getEnd().getX();
+            int highesty=grouped.get(0).getEnd().getY();
+        }
+        int leftmostx=start.getX();
+        int lowesty=start.getY();
+        int rightmostx= end.getX();
+        int highesty= end.getY();
         for(IShape sh : grouped){
-            if(sh.getStart().getX()<start.getX()){
-                start=sh.getStart();
+            if(sh.getStart().getX()<leftmostx){
+                leftmostx=sh.getStart().getX();
             }
-            if(sh.getEnd().getX()>end.getX()){
-                end=sh.getEnd();
+            if(sh.getStart().getY()<lowesty){
+                lowesty=sh.getStart().getY();
+            }
+            if(sh.getEnd().getX()>rightmostx){
+                rightmostx=sh.getEnd().getX();
+            }
+            if(sh.getEnd().getY()>highesty){
+                highesty=sh.getEnd().getY();
             }
         }
+        start= new MyPoint(new Point(leftmostx,lowesty));
+        end= new MyPoint(new Point(rightmostx,highesty));
     }
 
     public ArrayList<IShape> getComposition() {
         return grouped;
+    }
+
+    public void replace(ArrayList<IShape> replacement){
+        grouped = replacement;
     }
 
     @Override
@@ -59,6 +81,9 @@ public class CompositeShape implements IShape, Cloneable {
         for(IShape shape : grouped){
             shape.move(xoffset,yoffset);
         }
+        start=new MyPoint(new Point(start.getX()+xoffset,start.getY()+yoffset));
+        end=new MyPoint(new Point(end.getX()+xoffset,end.getY()+yoffset));
+        ScreenShapes.render();
     }
 
     @Override
@@ -74,7 +99,13 @@ public class CompositeShape implements IShape, Cloneable {
     @Override
     public IShape clone(){
         CompositeShape p =this;
-        try {return (IShape)super.clone();}
+        ArrayList<IShape> newshapes = new ArrayList<>();
+        for(IShape s: grouped){ IShape n = s.clone();newshapes.add(n);}
+        try {
+            CompositeShape n= (CompositeShape)super.clone();
+            n.replace(newshapes);
+            return (IShape) n;
+        }
         catch (Exception e){e.printStackTrace();return p;}
     }
 
@@ -108,4 +139,5 @@ public class CompositeShape implements IShape, Cloneable {
     public Color getFill() {
         return null;
     }
+
 }

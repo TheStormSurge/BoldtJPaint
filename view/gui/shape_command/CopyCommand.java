@@ -11,6 +11,7 @@ public class CopyCommand implements ICommand, IUndoable {
     ArrayList<IShape> shapes;
     @Override
     public void run()  {
+        Clipboard.clear();
         shapes=new ArrayList<IShape>();
         for(IShape s : SelectedShapes.getShapes()){
             Clipboard.add(s);

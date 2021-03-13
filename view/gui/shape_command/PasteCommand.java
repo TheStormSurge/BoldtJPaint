@@ -18,11 +18,12 @@ public class PasteCommand implements ICommand, IUndoable {
             IShape newshape = s.clone();
             ScreenShapes.add(newshape);
             shapesadded.add(newshape);
-            newshape.move(20, 20);
+            newshape.move(40, 40);
         }
         CommandHistory.add(this);
         SelectedShapes.clear();
         for(IShape s : ScreenShapes.getShapes()){s.highlighted(false);}
+        ScreenShapes.render();
     }
 
     @Override
