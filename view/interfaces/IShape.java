@@ -1,6 +1,8 @@
 package view.interfaces;
 import view.gui.MyPoint;
 
+import java.awt.*;
+
 public interface IShape {
     void draw();
     void render();
@@ -10,4 +12,9 @@ public interface IShape {
     MyPoint getEnd();
     IShape clone();
     void highlighted(boolean b);
+    int getHeight();
+    int getWidth();
+    String getShade();
+    Color getOutline();
+    Color getFill();
 }

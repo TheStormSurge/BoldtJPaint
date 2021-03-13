@@ -6,6 +6,7 @@ import view.gui.state.NormalState;
 import view.gui.state.ShapeState;
 import view.interfaces.IShape;
 
+import java.awt.*;
 import java.util.ArrayList;
 
 public class CompositeShape implements IShape, Cloneable {
@@ -81,5 +82,30 @@ public class CompositeShape implements IShape, Cloneable {
     public void highlighted(boolean b){
         if(b){this.state=new HighlightState();}
         else{this.state=new NormalState();}
+    }
+
+    @Override
+    public int getHeight() {
+        return 0;
+    }
+
+    @Override
+    public int getWidth() {
+        return 0;
+    }
+
+    @Override
+    public String getShade() {
+        return null;
+    }
+
+    @Override
+    public Color getOutline() {
+        return null;
+    }
+
+    @Override
+    public Color getFill() {
+        return null;
     }
 }

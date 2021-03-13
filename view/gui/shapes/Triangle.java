@@ -3,6 +3,7 @@ import model.ShapeShadingType;
 import view.gui.ScreenShapes;
 import view.gui.MyPoint;
 import view.gui.PaintCanvas;
+import view.gui.strategies.TraingleStrat;
 import view.interfaces.IShape;
 import java.awt.*;
 
@@ -16,25 +17,13 @@ public class Triangle extends AbstractShape implements IShape,Cloneable {
         int[] calcy = {left.getY(),right.getY(), right.getY()};
         xs=calcx;
         ys=calcy;
+        strategy=new TraingleStrat();
     }
-    public void base(){
-        Graphics2D graph = canvas.getGraphics2D();
-        if (shade.equals("FILLED_IN")){
-            graph.setColor(fill);
-            graph.fillPolygon(xs,ys,3);
-        }
-        else if (shade.equals("OUTLINE")) {
-            graph.setColor(fill);
-            graph.setStroke(new BasicStroke(5));
-            graph.drawPolygon(xs,ys,3);
-        }
-        else{ //FILLED IN w/ OUTLINE
-            graph.setColor(fill);
-            graph.fillPolygon(xs,ys,3);
-            graph.setColor(outline);
-            graph.setStroke(new BasicStroke(5));
-            graph.drawPolygon(xs, ys,3);
-        }
+    public int[] getXs(){
+        return xs;
+    }
+    public int[] getYs(){
+        return ys;
     }
     public void move(int offsetx, int offsety){
         x=x+offsetx;

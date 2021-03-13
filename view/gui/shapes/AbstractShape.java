@@ -8,6 +8,7 @@ import view.gui.state.HighlightState;
 import view.gui.state.NormalState;
 import view.gui.state.ShapeState;
 import view.interfaces.IShape;
+import view.interfaces.IStrategy;
 
 import java.awt.*;
 
@@ -25,6 +26,7 @@ public class AbstractShape implements IShape{
     protected int width;
     protected MyPoint left;
     protected MyPoint right;
+    protected IStrategy strategy;
 
     public AbstractShape(PaintCanvas c, MyPoint s, MyPoint e, Color f, Color o, ShapeShadingType sh){
         state=new NormalState();
@@ -42,11 +44,26 @@ public class AbstractShape implements IShape{
         right= new MyPoint(new Point(x+width,y+height));
     }
 
+    public Color getFill(){
+        return fill;
+    }
+    public String getShade(){
+        return shade;
+    }
+    public Color getOutline(){
+        return outline;
+    }
+
     public void draw(){
         ScreenShapes.add(this);
         new DrawShape(this).run();
     }
-
+    public int getWidth(){
+        return width;
+    }
+    public int getHeight(){
+        return height;
+    }
     public MyPoint getStart() {
         return left;
     }
@@ -69,7 +86,9 @@ public class AbstractShape implements IShape{
         this.state.draw(this,canvas);
     }
 
-    public void base(){}
+    public void base(){
+        strategy.draw(this);
+    }
 
     public void move(int offsetx, int offsety){
         x=x+offsetx;
