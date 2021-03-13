@@ -18,6 +18,8 @@ public class CompositeShape implements IShape, Cloneable {
     MyPoint end;
     ShapeState state;
     IStrategy strategy;
+    int width;
+    int height;
 
     public CompositeShape(){
         state=new NormalState();
@@ -54,6 +56,8 @@ public class CompositeShape implements IShape, Cloneable {
         }
         start= new MyPoint(new Point(leftmostx,lowesty));
         end= new MyPoint(new Point(rightmostx,highesty));
+        width= Math.abs(end.getX()-start.getX());
+        height= Math.abs(end.getY()-start.getY());
     }
 
     public ArrayList<IShape> getComposition() {
@@ -126,12 +130,12 @@ public class CompositeShape implements IShape, Cloneable {
 
     @Override
     public int getHeight() {
-        return 0;
+        return height;
     }
 
     @Override
     public int getWidth() {
-        return 0;
+        return width;
     }
 
     @Override
@@ -148,5 +152,4 @@ public class CompositeShape implements IShape, Cloneable {
     public Color getFill() {
         return null;
     }
-
 }
