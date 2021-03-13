@@ -5,7 +5,9 @@ import view.gui.ScreenShapes;
 import view.gui.state.HighlightState;
 import view.gui.state.NormalState;
 import view.gui.state.ShapeState;
+import view.gui.strategies.RectangleStrat;
 import view.interfaces.IShape;
+import view.interfaces.IStrategy;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -15,9 +17,11 @@ public class CompositeShape implements IShape, Cloneable {
     MyPoint start;
     MyPoint end;
     ShapeState state;
+    IStrategy strategy;
 
     public CompositeShape(){
         state=new NormalState();
+        strategy=new RectangleStrat();
     }
 
     public void add(IShape s) {
@@ -72,8 +76,13 @@ public class CompositeShape implements IShape, Cloneable {
     }
 
     @Override
-    public void base() {
-        for(IShape shape : grouped){shape.base();}
+    public void base(boolean highlighted) {
+        if(highlighted){strategy.draw(this,true);}
+        else {
+            for (IShape shape : grouped) {
+                shape.base(false);
+            }
+        }
     }
 
     @Override

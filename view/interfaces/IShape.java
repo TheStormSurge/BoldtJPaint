@@ -6,7 +6,7 @@ import java.awt.*;
 public interface IShape {
     void draw();
     void render();
-    void base();
+    void base(boolean highlighted);
     void move(int xoffset, int yoffset);
     MyPoint getStart();
     MyPoint getEnd();

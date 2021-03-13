@@ -86,8 +86,8 @@ public class AbstractShape implements IShape{
         this.state.draw(this,canvas);
     }
 
-    public void base(){
-        strategy.draw(this);
+    public void base(boolean highlighted){
+        strategy.draw(this, highlighted);
     }
 
     public void move(int offsetx, int offsety){
